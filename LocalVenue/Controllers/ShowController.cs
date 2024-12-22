@@ -30,7 +30,6 @@ public class ShowController : ControllerBase
         [FromQuery] int pageSize = 10,
         [FromQuery] string? searchParameter = null,
         [FromQuery, SwaggerParameter("The property to search by. Defaults to 'Title' if left empty.")] string? searchProperty = null)
-    //TODO: can searchProperty be an enum instead of string?
     {
         try
         {
