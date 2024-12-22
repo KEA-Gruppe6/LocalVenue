@@ -17,3 +17,5 @@ powershell Compress-Archive -Path ./LocalVenue/bin/Release/net8.0/publish/* -Des
 #Bash
 terraform init --upgrade
 terraform apply --parallelism=25 -auto-approve
+
+#az webapp deploy --resource-group <name> --name <name> --src-path "path"
