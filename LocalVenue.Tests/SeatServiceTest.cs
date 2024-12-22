@@ -1,33 +1,40 @@
 using LocalVenue.Core;
 using LocalVenue.Core.Entities;
 using LocalVenue.Core.Services;
-using Moq;
-using Xunit;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace LocalVenue.Tests;
 
 public class SeatServiceTest
 {
-    private readonly SeatService _seatService;
-    private readonly Mock<VenueContext> _venueContextMock;
-
+    private readonly DbContextOptions<VenueContext> _options;
     public SeatServiceTest()
     {
-        _venueContextMock = new Mock<VenueContext>();
-        _seatService = new SeatService(_venueContextMock.Object);
+        _options = new DbContextOptionsBuilder<VenueContext>()
+            .UseInMemoryDatabase("LocalVenue")
+            .ConfigureWarnings(b => b.Ignore(InMemoryEventId.TransactionIgnoredWarning))
+            .Options;
     }
-
+    
     [Fact]
     public async Task TestSeatServiceGetById()
     {
-        // Arrange
+        await using var context = new VenueContext(_options);
+        
+        var service = new SeatService(context);
+        
         var seatId = 1;
+        
+        context.Seats.Add(new Seat { SeatId = seatId, Section = "Front", Row = 1, Number = 1 });
+
+        await context.SaveChangesAsync();
+        
+        // Arrange
+  
         var expectedSeat = new Seat { SeatId = seatId, Section = "Front", Row = 1, Number = 1 };
-
-        _venueContextMock.Setup(c => c.Seats).Returns(new List<Seat> { expectedSeat });
-
         // Act
-        var result = await _seatService.GetSeat(seatId);
+        var result = await service.GetSeat(seatId);
 
         // Assert
         Assert.NotNull(result);
