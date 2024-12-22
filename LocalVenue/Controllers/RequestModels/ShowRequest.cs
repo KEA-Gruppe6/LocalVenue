@@ -1,8 +1,8 @@
 using LocalVenue.Core.Enums;
 
-namespace LocalVenue.RequestDTOs;
+namespace LocalVenue.RequestModels;
 
-public class ShowRequestDTO
+public class ShowRequest
 {
     public string Title { get; set; } = string.Empty;
 

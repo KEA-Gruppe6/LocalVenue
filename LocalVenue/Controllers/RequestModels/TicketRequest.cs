@@ -1,8 +1,8 @@
 using LocalVenue.Core.Enums;
 
-namespace LocalVenue.RequestDTOs;
+namespace LocalVenue.RequestModels;
 
-public class TicketRequestDTO
+public class TicketRequest
 {
     public long ShowId { get; set; }
 

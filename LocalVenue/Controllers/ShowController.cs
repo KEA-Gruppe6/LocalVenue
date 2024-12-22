@@ -1,7 +1,7 @@
 using AutoMapper;
 using LocalVenue.Core.Entities;
 using LocalVenue.Core.Interfaces;
-using LocalVenue.RequestDTOs;
+using LocalVenue.RequestModels;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -90,7 +90,7 @@ public class ShowController : ControllerBase
     [SwaggerOperation(Summary = "Creates a new show", Description = "Creates a new show with the provided details.")]
     [SwaggerResponse(201, "Returns the created show", typeof(Show))]
     [SwaggerResponse(400, "If there is an error", typeof(string))]
-    public async Task<ActionResult<Show>> AddShow(ShowRequestDTO showRequestDTO)
+    public async Task<ActionResult<Show>> AddShow(ShowRequest showRequestDTO)
     {
         var show = _mapper.Map<Show>(showRequestDTO);
         try
@@ -111,7 +111,7 @@ public class ShowController : ControllerBase
     [SwaggerResponse(200, "Returns the updated show", typeof(Show))]
     [SwaggerResponse(400, "If there is an error", typeof(string))]
     [SwaggerResponse(404, "If the show is not found", typeof(string))]
-    public async Task<ActionResult<Show>> UpdateShow([FromBody] ShowRequestDTO showRequestDTO)
+    public async Task<ActionResult<Show>> UpdateShow([FromBody] ShowRequest showRequestDTO)
     {
         var show = _mapper.Map<Show>(showRequestDTO);
         try

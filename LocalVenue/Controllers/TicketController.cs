@@ -1,7 +1,7 @@
 using AutoMapper;
 using LocalVenue.Core.Entities;
 using LocalVenue.Core.Interfaces;
-using LocalVenue.RequestDTOs;
+using LocalVenue.RequestModels;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -47,7 +47,7 @@ public class TicketController : ControllerBase
     [SwaggerResponse(201, "Returns the created ticket", typeof(Ticket))]
     [SwaggerResponse(400, "If there is an error", typeof(string))]
     [SwaggerResponse(409, "If a ticket for assigned show with assigned seat exists", typeof(string))]
-    public async Task<ActionResult<Ticket>> AddTicket(TicketRequestDTO ticketRequestDTO)
+    public async Task<ActionResult<Ticket>> AddTicket(TicketRequest ticketRequestDTO)
     {
         var ticket = _mapper.Map<Ticket>(ticketRequestDTO);
         try
@@ -72,7 +72,7 @@ public class TicketController : ControllerBase
     [SwaggerResponse(200, "Returns the updated ticket", typeof(Ticket))]
     [SwaggerResponse(400, "If there is an error", typeof(string))]
     [SwaggerResponse(404, "If the ticket is not found", typeof(string))]
-    public async Task<ActionResult<Ticket>> UpdateTicket([FromBody] TicketRequestDTO ticketRequestDTO)
+    public async Task<ActionResult<Ticket>> UpdateTicket([FromBody] TicketRequest ticketRequestDTO)
     {
         var ticket = _mapper.Map<Ticket>(ticketRequestDTO);
         try
