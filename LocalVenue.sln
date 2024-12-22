@@ -1,8 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# 
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalVenue", "LocalVenue\LocalVenue.csproj", "{4E5C2A5F-DE5D-4817-8BB7-BA4CF3DDBCA1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{65AF63F2-33C8-4D9C-A921-59997FA0215C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalVenue.Tests", "LocalVenue.Tests\LocalVenue.Tests.csproj", "{09824250-CA79-4850-BDDE-15972AC4B93B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,5 +17,9 @@ Global
 		{4E5C2A5F-DE5D-4817-8BB7-BA4CF3DDBCA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E5C2A5F-DE5D-4817-8BB7-BA4CF3DDBCA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E5C2A5F-DE5D-4817-8BB7-BA4CF3DDBCA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09824250-CA79-4850-BDDE-15972AC4B93B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09824250-CA79-4850-BDDE-15972AC4B93B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09824250-CA79-4850-BDDE-15972AC4B93B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09824250-CA79-4850-BDDE-15972AC4B93B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
