@@ -32,7 +32,7 @@ jobs:
         with:
           name: .NET Tests
           path: TestResults/TestResults.xml
-          reporter: trx
+          reporter: dotnet-trx
 
       - name: Publish Test Results
         if: always()
