@@ -30,16 +30,58 @@ builder.Services.AddSwaggerGen(c =>
     //      TODO: Try to add dotnet and postman testing in pipeline
     // TODO: Implement the customer entity and some basic authentication for the API
 
+
+// Database context setup starts
+var connectionStrings = new List<string>();
+if (builder.Environment.IsDevelopment()) //pull secrets from local storage or Azure configuration
+{
+    var venueContextLocal = builder.Configuration.GetConnectionString("VenueContextLocal") ?? throw new ArgumentNullException("VenueContextLocal");
+    connectionStrings.Add(venueContextLocal);
+}
+var venueContext = builder.Configuration.GetConnectionString("VenueContext") ?? throw new ArgumentNullException("VenueContext");
+connectionStrings.Add(venueContext);
+
+string? connectionString = null;
+bool connected = false;
+
+foreach (var connStr in connectionStrings)
+{
+    try
+    {
+        var optionsBuilder = new DbContextOptionsBuilder<VenueContext>();
+        optionsBuilder.UseMySql(connStr, ServerVersion.AutoDetect(connStr));
+
+        using (var context = new VenueContext(optionsBuilder.Options))
+        {
+            if (context.Database.CanConnect())
+            {
+                connectionString = connStr;
+                connected = true;
+                break;
+            }
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Failed to connect using connection string: {connStr}. Error: {ex.Message}");
+    }
+}
+
+if (!connected)
+{
+    throw new Exception("Failed to connect to any database.");
+}
+
 builder.Services.AddDbContextFactory<VenueContext>(options =>
 {
-    options.UseMySql(builder.Configuration.GetConnectionString("VenueContext")!,
-    ServerVersion.Parse("8.0-mysql"));
+    options.UseMySql(connectionString, ServerVersion.Parse("8.0-mysql"));
 });
 
 builder.Services.AddScoped<ITicketService, TicketService>();
 builder.Services.AddScoped<IShowService, ShowService>();
 builder.Services.AddScoped<ISeatService, SeatService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
+// Database context setup ends
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>

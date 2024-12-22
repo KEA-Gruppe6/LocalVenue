@@ -1,0 +1,23 @@
+name: Azure CLI Example
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run Postman tests
+        uses: postmanlabs/newman-action@v4
+        with:
+          collection: tests.postman_collection.json
+          environment: |
+            {
+              "key": "webUrl",
+              "value": "https://localvenue-webapp-casp0006.azurewebsites.net/"
+            }
+          reporters: html
+          reporter-html-export: newman/results.html

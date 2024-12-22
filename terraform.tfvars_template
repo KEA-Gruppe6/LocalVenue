@@ -1,0 +1,7 @@
+subscription_id      = ""
+sql_user             = ""
+sql_password         = ""
+database_name        = ""
+jwt_token_secret     = ""
+zip_deploy_file_path = ""
+azure_name_suffix    = ""
