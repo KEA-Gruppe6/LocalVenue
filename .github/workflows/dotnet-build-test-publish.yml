@@ -98,7 +98,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"KEA-Gruppe6_LocalVenue" /o:"kea-gruppe6" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vscoveragexml.reportsPaths="**/coverage.xml" /d:sonar.cs.vstest.reportsPaths="**/TestResults.trx"
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"gruppe6-testing-frederik_gruppe6-testing-frederik" /o:"gruppe6-testing-frederik" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vscoveragexml.reportsPaths="**/coverage.xml" /d:sonar.cs.vstest.reportsPaths="**/TestResults.trx"
           dotnet build --no-incremental
           dotnet test --no-build --logger "trx;LogFileName=TestResults.trx"
           dotnet-coverage collect "dotnet test" -f xml -o "coverage.xml"
