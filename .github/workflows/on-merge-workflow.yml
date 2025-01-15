@@ -35,7 +35,7 @@ jobs:
       - name: Deploy to Azure
         uses: azure/webapps-deploy@v2
         with:
-          app-name: "localvenue-webapp-frbr0006"
+          app-name: "localvenue-webapp-casp0006"
           slot-name: "production"
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: .
@@ -64,7 +64,7 @@ jobs:
 
       - name: Verify deployment
         run: |
-          until curl -sSf https://localvenue-webapp-frbr0006.azurewebsites.net/ > /dev/null; do
+          until curl -sSf https://localvenue-webapp-casp0006.azurewebsites.net/ > /dev/null; do
             echo "Waiting for deployment..."
             sleep 10
           done
@@ -73,7 +73,7 @@ jobs:
       - name: Run Postman tests - Users and Seats
         run: |
           newman run "User_Seats.postman_collection.json" \
-            --global-var "BASE_URL=https://localvenue-webapp-frbr0006.azurewebsites.net" \
+            --global-var "BASE_URL=https://localvenue-webapp-casp0006.azurewebsites.net" \
             --global-var "RESPONSE_TIME=3000" \
             --global-var "EMAIL=${{ secrets.ADMIN_EMAIL }}" \
             --global-var "PASSWORD=${{ secrets.ADMIN_PASSWORD }}" \
@@ -84,7 +84,7 @@ jobs:
       - name: Run Postman tests - Shows and Tickets
         run: |
           newman run "Shows_Tickets.postman_collection.json" \
-            --global-var "BASE_URL=https://localvenue-webapp-frbr0006.azurewebsites.net" \
+            --global-var "BASE_URL=https://localvenue-webapp-casp0006.azurewebsites.net" \
             --global-var "RESPONSE_TIME=3000" \
             --reporters cli,htmlextra \
             --reporter-htmlextra-export testResults/runreport2.html \
